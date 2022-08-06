@@ -1,29 +1,26 @@
 import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Todo } from 'models'
 import TodoItem from 'components/TodoItem'
 
 function Note() {
   const { noteId } = useParams()
 
+  useEffect(() => {
+    if (noteId) {
+      console.log(noteId)
+    }
+  })
+
   const [title, setTitle] = useState('')
   const onTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
   }
 
-  const initTodos = [
-    {
-      id: '123',
-      text: 'Do i!',
-      completed: false
-    }
-  ]
-
-  const [todos, setTodos] = useState(initTodos as Todo[])
+  const [todos, setTodos] = useState([] as Todo[])
 
   const addNewTodo = () => {
     const randomUUID = crypto.randomUUID()
-    console.log(todos)
     setTodos((todos) => [
       ...todos,
       { id: randomUUID, text: '', completed: false }
@@ -32,7 +29,6 @@ function Note() {
 
   const deleteTodo = (id: string) => {
     setTodos((todos) => [...todos.filter((todo) => todo.id !== id)])
-    console.log('delete!')
   }
 
   const updateTodo = (todo: Todo) => {
@@ -53,7 +49,12 @@ function Note() {
       <h1 className="text-2xl">Note: {noteId}</h1>
       <div className="rounded bg-slate-100 p-2 shadow">
         <h2>{title}</h2>
-        <input type="text" value={title} onChange={onTitleChange} />
+        <input
+          type="text"
+          placeholder="Note Title"
+          value={title}
+          onChange={onTitleChange}
+        />
         <div>
           {todos.map((todo) => (
             <TodoItem
