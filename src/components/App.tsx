@@ -1,25 +1,40 @@
-import Avatar from 'components/Avatar'
+import { Routes, Route, NavLink } from 'react-router-dom'
+import List from 'pages/List'
+import Note from 'pages/Note'
 
 function App() {
+  const activeClassName =
+    'text-indigo-600 border-indigo-600 flex-1 whitespace-nowrap border-b-2 py-4 px-1 font-medium'
+  const noActiveClassName =
+    'text-gray-900 border-transparent flex-1 whitespace-nowrap border-b-2 py-4 px-1 font-medium'
+
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-screen-xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-base font-semibold uppercase tracking-wide text-blue-600">
-            Welcome to
-          </h2>
-          <p className="my-3 text-4xl font-bold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
-            reactjs-vite-tailwindcss-boilerplate
-          </p>
-          <p className="text-xl text-gray-400">Start building for free.</p>
-          <p className="mt-5">
-            <Avatar
-              size="large"
-              src="https://www.gravatar.com/avatar/4405735f6f3129e0286d9d43e7b460d0"
-            />
-          </p>
-        </div>
-      </div>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? activeClassName : noActiveClassName
+        }
+        role="tab"
+        type="button"
+        to="/"
+      >
+        List
+      </NavLink>
+
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? activeClassName : noActiveClassName
+        }
+        role="tab"
+        type="button"
+        to="/note"
+      >
+        Note
+      </NavLink>
+      <Routes>
+        <Route path="/" element={<List />} />
+        <Route path="note" element={<Note />} />
+      </Routes>
     </div>
   )
 }
