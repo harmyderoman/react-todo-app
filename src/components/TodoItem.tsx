@@ -7,34 +7,22 @@ type TodoProps = {
 }
 
 export default function TodoItem({ todo, onDelete, onUpdate }: TodoProps) {
-  const handleDeleteTodo = () => {
-    onDelete(todo.id)
-  }
   const changeText = (e: React.FormEvent<HTMLInputElement>) => {
-    const newTodo = {
+    onUpdate({
       ...todo,
       text: e.currentTarget.value
-    }
-    onUpdate(newTodo)
+    })
   }
 
-  const toggleComplete = () => {
-    const newTodo = {
-      ...todo,
-      completed: !todo.completed
-    }
-
-    onUpdate(newTodo)
-  }
   return (
     <div>
       <input
         type="checkbox"
         checked={todo.completed}
-        onChange={toggleComplete}
+        onChange={() => onUpdate({ ...todo, completed: !todo.completed })}
       />
       <input type="text" value={todo.text} onChange={changeText} />
-      <button onClick={handleDeleteTodo}>Delete</button>
+      <button onClick={() => onDelete(todo.id)}>Delete</button>
     </div>
   )
 }
