@@ -1,5 +1,5 @@
 function List() {
-  return <h1>List</h1>
+  return <h1 className="text-2xl">List</h1>
 }
 
 export default List

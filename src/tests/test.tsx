@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import App from './App'
+import App from '../App'
 
 describe('<App />', () => {
   it('should render the App', () => {
@@ -11,7 +11,7 @@ describe('<App />', () => {
         name: /welcome to/i,
         level: 2
       })
-    ).toBeInTheDocument()
+    ).tobe
 
     expect(
       screen.getByText(/reactjs-vite-tailwindcss-boilerplate/i)
