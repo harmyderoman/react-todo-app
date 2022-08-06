@@ -1,15 +1,25 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Todo } from 'models'
+import type { Todo, Note as Notetype } from 'models'
 import TodoItem from 'components/TodoItem'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  addNote,
+  deleteNote,
+  updateNote,
+  selectNotes
+} from './../store/notesSlice'
 
 function Note() {
   const { noteId } = useParams()
+  const notes: Notetype[] = useSelector(selectNotes)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (noteId) {
       console.log(noteId)
     }
+    console.log('notes:', notes)
   })
 
   const [title, setTitle] = useState('')
@@ -44,6 +54,19 @@ function Note() {
     setTodos(newTodos)
   }
 
+  const addNoteHandler = () => {
+    const newNote = {
+      title,
+      todos,
+      id: noteId ?? crypto.randomUUID()
+    }
+    if (!noteId) {
+      dispatch(addNote(newNote))
+    } else {
+      dispatch(updateNote(newNote))
+    }
+  }
+
   return (
     <div>
       <h1 className="text-2xl">Note: {noteId}</h1>
@@ -65,6 +88,16 @@ function Note() {
             />
           ))}
           <button onClick={addNewTodo}>Add New Todo</button>
+        </div>
+        <div>
+          <h3>Actions</h3>
+          <button onClick={addNoteHandler}>Save Note</button>
+          <button
+            disabled={!noteId}
+            onClick={() => dispatch(deleteNote(noteId))}
+          >
+            Delete Note
+          </button>
         </div>
       </div>
     </div>
