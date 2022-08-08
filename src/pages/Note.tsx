@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import type { Todo, Note as Notetype } from 'models'
+import type { Todo, Note as NoteType } from 'models'
 import TodoItem from 'components/TodoItem'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -12,7 +12,7 @@ import {
 
 function Note() {
   const { noteId } = useParams()
-  const notes: Notetype[] = useSelector(selectNotes)
+  const notes: NoteType[] = useSelector(selectNotes)
   const dispatch = useDispatch()
 
   useEffect(() => {
