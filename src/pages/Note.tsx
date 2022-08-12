@@ -17,10 +17,14 @@ function Note() {
 
   useEffect(() => {
     if (noteId) {
-      console.log(noteId)
+      const note = notes.find((note) => note.id === noteId)
+
+      if (note) {
+        setTitle(note.title)
+        setTodos(note.todos)
+      }
     }
-    console.log('notes:', notes)
-  })
+  }, [noteId, notes])
 
   const [title, setTitle] = useState('')
   const onTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -30,10 +34,11 @@ function Note() {
   const [todos, setTodos] = useState([] as Todo[])
 
   const addNewTodo = () => {
-    const randomUUID = crypto.randomUUID()
+    const RANDOM_ID = crypto.randomUUID()
+
     setTodos((todos) => [
       ...todos,
-      { id: randomUUID, text: '', completed: false }
+      { id: RANDOM_ID, text: '', completed: false }
     ])
   }
 
@@ -51,15 +56,17 @@ function Note() {
         newTodos.push(item)
       }
     })
+
     setTodos(newTodos)
   }
 
-  const addNoteHandler = () => {
+  const saveNoteHandler = () => {
     const newNote = {
       title,
       todos,
       id: noteId ?? crypto.randomUUID()
     }
+
     if (!noteId) {
       dispatch(addNote(newNote))
     } else {
@@ -91,7 +98,7 @@ function Note() {
         </div>
         <div>
           <h3>Actions</h3>
-          <button onClick={addNoteHandler}>Save Note</button>
+          <button onClick={saveNoteHandler}>Save Note</button>
           <button
             disabled={!noteId}
             onClick={() => dispatch(deleteNote(noteId))}
