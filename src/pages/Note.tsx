@@ -10,10 +10,19 @@ import {
   selectNotes
 } from './../store/notesSlice'
 
+import useArrayState from './../utils/useArrayState'
+
 function Note() {
   const { noteId } = useParams()
   const notes: NoteType[] = useSelector(selectNotes)
   const dispatch = useDispatch()
+
+  const [title, setTitle] = useState('')
+  const onTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value)
+  }
+
+  const todos = useArrayState<Todo>([])
 
   useEffect(() => {
     if (noteId) {
@@ -21,49 +30,28 @@ function Note() {
 
       if (note) {
         setTitle(note.title)
-        setTodos(note.todos)
+        todos.setState(note.todos)
       }
     }
-  }, [noteId, notes])
-
-  const [title, setTitle] = useState('')
-  const onTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
-  }
-
-  const [todos, setTodos] = useState([] as Todo[])
+  }, [noteId, notes, todos])
 
   const addNewTodo = () => {
     const RANDOM_ID = crypto.randomUUID()
-
-    setTodos((todos) => [
-      ...todos,
-      { id: RANDOM_ID, text: '', completed: false }
-    ])
+    todos.push({ id: RANDOM_ID, text: '', completed: false })
   }
 
   const deleteTodo = (id: string) => {
-    setTodos((todos) => [...todos.filter((todo) => todo.id !== id)])
+    todos.deleteItemByProperty({ id: id })
   }
 
   const updateTodo = (todo: Todo) => {
-    const newTodos: Todo[] = []
-
-    todos.forEach((item) => {
-      if (item.id === todo.id) {
-        newTodos.push(todo)
-      } else {
-        newTodos.push(item)
-      }
-    })
-
-    setTodos(newTodos)
+    todos.updateItemByProperty({ id: todo.id }, todo)
   }
 
   const saveNoteHandler = () => {
     const newNote = {
       title,
-      todos,
+      todos: todos.state,
       id: noteId ?? crypto.randomUUID()
     }
 
@@ -86,7 +74,7 @@ function Note() {
           onChange={onTitleChange}
         />
         <div>
-          {todos.map((todo) => (
+          {todos.state.map((todo) => (
             <TodoItem
               todo={todo}
               key={todo.id}
