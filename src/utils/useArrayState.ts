@@ -16,9 +16,7 @@ export default function useArrayState<T extends ArrayItem>(
   const deleteItemByProperty = (prop: Record<string, unknown>) => {
     const key = Object.keys(prop)[0]
 
-    setState((state) => [
-      ...state.filter((item) => item[key] ?? null != prop[key])
-    ])
+    setState((state) => [...state.filter((item) => item[key] != prop[key])])
   }
 
   const updateItemByIndex = (index: number, item: T) => {
