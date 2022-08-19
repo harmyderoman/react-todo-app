@@ -11,6 +11,7 @@ import {
 } from './../store/notesSlice'
 
 import useArrayState from './../utils/useArrayState'
+import { nanoid } from 'nanoid/non-secure'
 
 function Note() {
   const { noteId } = useParams()
@@ -36,7 +37,7 @@ function Note() {
   }, [noteId, notes, todos])
 
   const addNewTodo = () => {
-    const RANDOM_ID = crypto.randomUUID()
+    const RANDOM_ID = nanoid(10)
     todos.push({ id: RANDOM_ID, text: '', completed: false })
   }
 
@@ -52,7 +53,7 @@ function Note() {
     const newNote = {
       title,
       todos: todos.state,
-      id: noteId ?? crypto.randomUUID()
+      id: noteId ?? nanoid(10)
     }
 
     if (!noteId) {
