@@ -9,3 +9,8 @@ export type Note = {
   title: string
   todos: Array<Todo>
 }
+
+export type ConfirmDialogProps = {
+  confirm: (answer: unknown) => void,
+  cancel: () => void
+}
