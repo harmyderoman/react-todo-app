@@ -11,7 +11,7 @@ export const notesSlice = createSlice({
       state.value.push(action.payload)
     },
     deleteNote(state, action) {
-      state.value = state.value.filter((note) => note.id != action.payload.id)
+      state.value = state.value.filter((note) => note.id != action.payload)
     },
     updateNote(state, action) {
       const index = state.value.findIndex(

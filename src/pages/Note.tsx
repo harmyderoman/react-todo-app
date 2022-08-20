@@ -34,7 +34,7 @@ function Note() {
         todos.setState(note.todos)
       }
     }
-  }, [noteId, notes, todos])
+  }, [])
 
   const addNewTodo = () => {
     const RANDOM_ID = nanoid(10)
