@@ -13,7 +13,7 @@ export default function useArrayState<T extends ArrayItem>(
     setState((state) => state.filter((_, i) => i != index))
   }
 
-  const deleteItemByProperty = (prop: Record<string, unknown>) => {
+  const deleteItemsByProperty = (prop: Record<string, unknown>) => {
     const key = Object.keys(prop)[0]
 
     setState((state) => state.filter((item) => item[key] != prop[key]))
@@ -52,7 +52,7 @@ export default function useArrayState<T extends ArrayItem>(
     push,
     setState,
     deleteItemByIndex,
-    deleteItemByProperty,
+    deleteItemsByProperty,
     updateItemByIndex,
     updateItemsByProperty
   }
