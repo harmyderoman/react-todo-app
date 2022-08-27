@@ -11,6 +11,7 @@ export type Note = {
 }
 
 export type ConfirmDialogProps = {
-  confirm: (answer: unknown) => void,
+  message: string
+  confirm: (answer: boolean) => void,
   cancel: () => void
 }

@@ -13,7 +13,7 @@ const useConfirmDialog = (DialogContent: ComponentType<ConfirmDialogProps>, mess
     const unmount = () => {
       root.unmount()
     }
-    const onConfirm = (answer: unknown) => {
+    const onConfirm = (answer: boolean) => {
       unmount()
       res(answer)
     }

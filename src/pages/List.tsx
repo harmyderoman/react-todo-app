@@ -1,14 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import type { Todo, Note } from 'models'
-import TodoItem from 'components/TodoItem'
+import type { Note } from 'models'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  addNote,
-  deleteNote,
-  updateNote,
-  selectNotes
-} from './../store/notesSlice'
+import { deleteNote, selectNotes } from './../store/notesSlice'
 import Dialog from './../components/ConfirmDialog'
 import useConfirmDialog from 'hooks/useConfirmDialog'
 
@@ -21,9 +15,9 @@ function List() {
   })
 
   const handleDeleteNote = async (id: string) => {
-    const response = await useConfirmDialog(Dialog)
-    
-    if(response) {
+    const response = await useConfirmDialog(Dialog, 'Are you?')
+
+    if (response) {
       dispatch(deleteNote(id))
     }
   }
@@ -37,7 +31,13 @@ function List() {
             <NavLink type="button" to={`note/${note.id}`}>
               {note.title}
             </NavLink>
-            <button onClick={() => {handleDeleteNote(note.id)}}>Delete Note</button>
+            <button
+              onClick={() => {
+                handleDeleteNote(note.id)
+              }}
+            >
+              Delete Note
+            </button>
           </li>
         ))}
       </ul>
@@ -46,7 +46,3 @@ function List() {
 }
 
 export default List
-function dispatch(arg0: { payload: any; type: string }) {
-  throw new Error('Function not implemented.')
-}
-

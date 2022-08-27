@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import type { Todo, Note as NoteType } from 'models'
 import TodoItem from 'components/TodoItem'
@@ -13,11 +13,15 @@ import {
 import useArrayState from '../hooks/useArrayState'
 import useHistoryEffect from '../hooks/useHistoryEffect'
 import { nanoid } from 'nanoid/non-secure'
+import useConfirmDialog from './../hooks/useConfirmDialog'
+import ConfirmDialog from 'components/ConfirmDialog'
 
 function Note() {
   const { noteId } = useParams()
   const notes: NoteType[] = useSelector(selectNotes)
   const dispatch = useDispatch()
+
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState('')
 
@@ -28,7 +32,8 @@ function Note() {
   const todos = useArrayState<Todo>([])
   const {
     undo, 
-    redo
+    redo,
+    clearHistory
   } = useHistoryEffect( todos.state, todos.setState)
   
   useEffect(() => {
@@ -47,6 +52,7 @@ function Note() {
     todos.push({ id: RANDOM_ID, text: '', completed: false })
   }
 
+  // To delete Todo by id use this:
   // const deleteTodo = (id: string) => {
   //   todos.deleteItemsByProperty({ id: id })
   // }
@@ -72,6 +78,32 @@ function Note() {
       dispatch(updateNote(newNote))
     }
   }
+
+  const clearNote = () => {
+    setTitle('')
+    todos.setState([])
+
+    clearHistory()
+  }
+
+  async function cancelHandler() {
+    const isConfirmed = await useConfirmDialog(ConfirmDialog, 'Are you sure?')
+
+    if(isConfirmed) {
+      clearNote()
+      navigate('/')
+    }
+  }
+  async function deleteNoteHandler() {
+    const isConfirmed = await useConfirmDialog(ConfirmDialog, 'Are you sure?')
+
+    if(isConfirmed) {
+      dispatch(deleteNote(noteId))
+      clearNote()
+      navigate('/')
+    }
+  }
+
 
   return (
     <div>
@@ -100,10 +132,11 @@ function Note() {
         </div>
         <div>
           <h3>Actions</h3>
+          <button onClick={cancelHandler}>Cancel</button>
           <button onClick={saveNoteHandler}>Save Note</button>
           <button
             disabled={!noteId}
-            onClick={() => dispatch(deleteNote(noteId))}
+            onClick={deleteNoteHandler}
           >
             Delete Note
           </button>

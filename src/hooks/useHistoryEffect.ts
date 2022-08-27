@@ -2,8 +2,6 @@ import { useState, useEffect, useMemo } from "react"
 
 export default function useHistoryEffect<T>(state: T, setState: ((arg0: T) => void)) {
 
-  // const [state, setState] = useState(initialState)
-
   useEffect(() => {
     if(watch) {
       setHistory((oldHistory) => [...oldHistory, state])
@@ -11,8 +9,6 @@ export default function useHistoryEffect<T>(state: T, setState: ((arg0: T) => vo
     } else {
       setWatch(true)
     }
-    console.log('titles:', history)
-    console.log('index:', historyIndex)
   }, [state])
   
   const [history, setHistory] = useState<T[]>([])
@@ -25,8 +21,6 @@ export default function useHistoryEffect<T>(state: T, setState: ((arg0: T) => vo
     if(canRedo) {
       setIndex( index => index + 1 )
       setState( history[historyIndex + 1] )
-      console.log('titles:', history)
-      console.log('index:', historyIndex)
     }
   }
   const undo = () => {
@@ -34,8 +28,6 @@ export default function useHistoryEffect<T>(state: T, setState: ((arg0: T) => vo
     if(canUndo) {
       setIndex( index => index - 1 )
       setState( history[historyIndex - 1] )
-      console.log('titles:', history)
-      console.log('index:', historyIndex)
     }
   }
   const canRedo = useMemo(() => {
@@ -46,12 +38,17 @@ export default function useHistoryEffect<T>(state: T, setState: ((arg0: T) => vo
     return historyIndex > 0
   }, [historyIndex])
 
+  const clearHistory = () => {
+    setHistory([])
+  }
+
   return {
     state,
     setState,
     redo,
     undo,
     canRedo,
-    canUndo
+    canUndo,
+    clearHistory
   }
 }
