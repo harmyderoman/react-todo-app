@@ -11,6 +11,7 @@ import {
 } from './../store/notesSlice'
 
 import useArrayState from './../utils/useArrayState'
+import useHistoryEffect from './../utils/useHistoryEffect'
 import { nanoid } from 'nanoid/non-secure'
 
 function Note() {
@@ -19,12 +20,17 @@ function Note() {
   const dispatch = useDispatch()
 
   const [title, setTitle] = useState('')
+
   const onTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
   }
 
   const todos = useArrayState<Todo>([])
-
+  const {
+    undo, 
+    redo
+  } = useHistoryEffect( todos.state, todos.setState)
+  
   useEffect(() => {
     if (noteId) {
       const note = notes.find((note) => note.id === noteId)
@@ -41,12 +47,16 @@ function Note() {
     todos.push({ id: RANDOM_ID, text: '', completed: false })
   }
 
-  const deleteTodo = (id: string) => {
-    todos.deleteItemByProperty({ id: id })
+  // const deleteTodo = (id: string) => {
+  //   todos.deleteItemsByProperty({ id: id })
+  // }
+
+  const deleteTodoByIndex = (index: number) => {
+    todos.deleteItemByIndex(index)
   }
 
   const updateTodo = (todo: Todo) => {
-    todos.updateItemByProperty({ id: todo.id }, todo)
+    todos.updateItemsByProperty({ id: todo.id }, todo)
   }
 
   const saveNoteHandler = () => {
@@ -65,6 +75,8 @@ function Note() {
 
   return (
     <div>
+      <button onClick={redo}>Redo</button>
+      <button onClick={undo}>Undo</button>
       <h1 className="text-2xl">Note: {noteId}</h1>
       <div className="rounded bg-slate-100 p-2 shadow">
         <h2>{title}</h2>
@@ -75,11 +87,12 @@ function Note() {
           onChange={onTitleChange}
         />
         <div>
-          {todos.state.map((todo) => (
+          {todos.state.map((todo, index) => (
             <TodoItem
               todo={todo}
               key={todo.id}
-              onDelete={deleteTodo}
+              index={index}
+              onDelete={deleteTodoByIndex}
               onUpdate={updateTodo}
             />
           ))}

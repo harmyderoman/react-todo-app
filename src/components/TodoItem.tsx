@@ -2,11 +2,12 @@ import { Todo } from 'models'
 
 type TodoProps = {
   todo: Todo
-  onDelete: (id: string) => void
+  onDelete: (index: number) => void
   onUpdate: (todo: Todo) => void
+  index: number
 }
 
-export default function TodoItem({ todo, onDelete, onUpdate }: TodoProps) {
+export default function TodoItem({ todo, onDelete, onUpdate, index }: TodoProps) {
   const changeText = (e: React.FormEvent<HTMLInputElement>) => {
     onUpdate({
       ...todo,
@@ -22,7 +23,7 @@ export default function TodoItem({ todo, onDelete, onUpdate }: TodoProps) {
         onChange={() => onUpdate({ ...todo, completed: !todo.completed })}
       />
       <input type="text" value={todo.text} onChange={changeText} />
-      <button onClick={() => onDelete(todo.id)}>Delete</button>
+      <button onClick={() => onDelete(index)}>Delete</button>
     </div>
   )
 }
