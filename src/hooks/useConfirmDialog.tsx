@@ -6,21 +6,22 @@ const confirmRoot = document.createElement('div')
 const body = document.querySelector('body')
 body?.appendChild(confirmRoot)
 
-const useConfirmDialog = (DialogContent: ComponentType<ConfirmDialogProps>) =>
+const useConfirmDialog = (DialogContent: ComponentType<ConfirmDialogProps>, message: string) =>
   new Promise(res => {
     
     const root = createRoot(confirmRoot)
     const unmount = () => {
       root.unmount()
     }
-    const giveAnswer = (answer: unknown) => {
+    const onConfirm = (answer: unknown) => {
       unmount()
       res(answer)
     }
     root.render(
-      <DialogContent 
-        confirm={giveAnswer} 
-        cancel={() => {giveAnswer(false)}}
+      <DialogContent
+        message={message}
+        confirm={onConfirm} 
+        cancel={() => {onConfirm(false)}}
       />)
   })
 
