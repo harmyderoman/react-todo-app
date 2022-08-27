@@ -10,8 +10,8 @@ import {
   selectNotes
 } from './../store/notesSlice'
 
-import useArrayState from './../utils/useArrayState'
-import useHistoryEffect from './../utils/useHistoryEffect'
+import useArrayState from '../hooks/useArrayState'
+import useHistoryEffect from '../hooks/useHistoryEffect'
 import { nanoid } from 'nanoid/non-secure'
 
 function Note() {

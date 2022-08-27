@@ -10,7 +10,7 @@ import {
   selectNotes
 } from './../store/notesSlice'
 import Dialog from './../components/ConfirmDialog'
-import useConfirmDialog from 'utils/useConfirmDialog'
+import useConfirmDialog from 'hooks/useConfirmDialog'
 
 function List() {
   const notes: Note[] = useSelector(selectNotes)
