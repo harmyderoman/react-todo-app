@@ -6,15 +6,15 @@ type NavtabProps = {
 }
 
 export default function NavTab({ label, to }: NavtabProps) {
-  const activeClassName =
-    'text-indigo-600 border-indigo-600 flex-1 whitespace-nowrap border-b-2 px-1 font-medium'
-  const noActiveClassName =
-    'text-gray-900 border-transparent flex-1 whitespace-nowrap border-b-2 px-1 font-medium'
+  const activeClassNames =
+    'text-indigo-600 border-indigo-600 flex-1 whitespace-nowrap border-b-2 px-1 font-medium text-2xl'
+  const noActiveClassNames =
+    'text-gray-900 border-transparent flex-1 whitespace-nowrap border-b-2 px-1 font-medium text-2xl'
 
   return (
     <NavLink
       className={({ isActive }) =>
-        isActive ? activeClassName : noActiveClassName
+        isActive ? activeClassNames : noActiveClassNames
       }
       role="tab"
       type="button"
