@@ -1,0 +1,30 @@
+#root {
+  min-height: 100vh;
+}
+
+.td-main-container {
+  min-height: 100vh;
+  @apply bg-white py-4 flex flex-col items-center border
+}
+
+/** NAVBAR */
+.td-navbar {
+  @apply w-max pb-3 gap-4 flex
+}
+
+.td-navtab {
+  @apply text-gray-900 border-transparent flex-1 whitespace-nowrap border-b-2 px-1 font-medium text-2xl
+}
+
+.td-navtab-active {
+  @apply text-indigo-600 border-indigo-600
+}
+
+/** Buttons */
+.td-base-button {
+  @apply border 
+    rounded-lg 
+    shadow-lg 
+    px-3 
+    py-2 
+}

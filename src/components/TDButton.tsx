@@ -17,13 +17,7 @@ function TDButton({ onClick,
   ...rest }: TDButtonProps) {
 
   const classes = useMemo(()=> {
-    return `border 
-    rounded-lg 
-    shadow-lg 
-    px-3 
-    py-2 
-    ${dark?'text-white':'text-grey-600'} 
-    bg-${bgColor}`
+    return (`td-base-button ${dark?'text-white':'text-grey-600'} bg-${bgColor}`)
   }, [dark, bgColor])
 
   return  (

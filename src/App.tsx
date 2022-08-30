@@ -4,11 +4,13 @@ import Note from 'pages/Note'
 import NavTab from 'components/NavTab'
 
 function App() {
+
+
   return (
-    <div className="bg-white py-4 flex flex-col items-center border">
-      <div className="w-max pb-3 gap-2 flex">
-        <NavTab to="/" label="List" />
-        <NavTab to="/note" label="New Note" />
+    <div className="td-main-container">
+      <div className="td-navbar">
+        <NavTab to="/" label="List of Notes" />
+        <NavTab to="/note" label="Note" />
       </div>
 
       <Routes>
