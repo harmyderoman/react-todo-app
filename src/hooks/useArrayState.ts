@@ -21,7 +21,9 @@ export default function useArrayState<T extends ArrayItem>(
 
   const updateItemByIndex = (index: number, item: T) => {
     setState((state) => {
-      return [...state.slice(0, index), item, ...state.slice(index + 1)]
+      const updatedItem = Object.assign({}, state[index], item)
+
+      return [...state.slice(0, index), updatedItem, ...state.slice(index + 1)]
     })
   }
 
@@ -32,8 +34,11 @@ export default function useArrayState<T extends ArrayItem>(
       const newState: T[] = []
 
       state.forEach((item) => {
+
         if (item[key] == prop[key]) {
-          newState.push(newItem)
+          const updatedItem = Object.assign({}, item, newItem)
+
+          newState.push(updatedItem)
         } else {
           newState.push(item)
         }
