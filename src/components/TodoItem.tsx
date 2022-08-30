@@ -1,4 +1,5 @@
 import { Todo } from 'models'
+import TDButton from './TDButton'
 
 type TodoProps = {
   todo: Todo
@@ -7,7 +8,12 @@ type TodoProps = {
   index: number
 }
 
-export default function TodoItem({ todo, onDelete, onUpdate, index }: TodoProps) {
+export default function TodoItem({
+  todo,
+  onDelete,
+  onUpdate,
+  index
+}: TodoProps) {
   const changeText = (e: React.FormEvent<HTMLInputElement>) => {
     onUpdate({
       ...todo,
@@ -16,14 +22,20 @@ export default function TodoItem({ todo, onDelete, onUpdate, index }: TodoProps)
   }
 
   return (
-    <div>
+    <div className='py-1 flex gap-3 '>
       <input
+        className="w-6"
         type="checkbox"
         checked={todo.completed}
         onChange={() => onUpdate({ ...todo, completed: !todo.completed })}
       />
-      <input type="text" value={todo.text} onChange={changeText} />
-      <button onClick={() => onDelete(index)}>Delete</button>
+      <input
+        className="text-xl rounded px-3 py-1 focus:outline-sky-200"
+        type="text"
+        value={todo.text}
+        onChange={changeText}
+      />
+      <TDButton small bgColor='red-600' dark onClick={() => onDelete(index)}>Delete</TDButton>
     </div>
   )
 }

@@ -114,7 +114,7 @@ function Note() {
           <TDButton small bgColor='stone-200' onClick={undo}>Undo</TDButton>
         </div>
         <input
-        className='text-2xl rounded px-3 py-1 focus:outline-sky-200'
+          className='text-2xl rounded px-3 py-1 focus:outline-sky-200'
           type="text"
           placeholder="Note Title"
           value={title}
