@@ -26,11 +26,14 @@ function List() {
   return (
     <>
       <h1 className="text-2xl">List of Notes:</h1>
-      <ul>
+      <div className='pt-2'>
         {notes.map((note) => (
-          <li key={note.id}>
+          <div
+            className='border py-4 px-4 rounded-xl flex flex-col gap-2' 
+            key={note.id}
+            >
             <NavLink type="button" to={`note/${note.id}`}>
-              {note.title}
+              <h2 className='text-xl'>#{note.title}</h2>
             </NavLink>
             <TDButton
               dark
@@ -41,9 +44,9 @@ function List() {
             >
               Delete Note
             </TDButton>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </>
   )
 }

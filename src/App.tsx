@@ -5,9 +5,11 @@ import NavTab from 'components/NavTab'
 
 function App() {
   return (
-    <div className="bg-white py-4">
-      <NavTab to="/" label="List" />
-      <NavTab to="/note" label="New Note" />
+    <div className="bg-white py-4 flex flex-col items-center border">
+      <div className="w-max pb-3 gap-2 flex">
+        <NavTab to="/" label="List" />
+        <NavTab to="/note" label="New Note" />
+      </div>
 
       <Routes>
         <Route path="/" element={<List />} />
