@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import type { Todo, Note as NoteType } from 'models'
 import TodoItem from 'components/TodoItem'
+import TDButton from 'components/TDButton'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   addNote,
@@ -21,7 +22,7 @@ function Note() {
   const notes: NoteType[] = useSelector(selectNotes)
   const dispatch = useDispatch()
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
 
@@ -30,12 +31,11 @@ function Note() {
   }
 
   const todos = useArrayState<Todo>([])
-  const {
-    undo, 
-    redo,
-    clearHistory
-  } = useHistoryEffect( todos.state, todos.setState)
-  
+  const { undo, redo, clearHistory } = useHistoryEffect(
+    todos.state,
+    todos.setState
+  )
+
   useEffect(() => {
     if (noteId) {
       const note = notes.find((note) => note.id === noteId)
@@ -89,7 +89,7 @@ function Note() {
   async function cancelHandler() {
     const isConfirmed = await useConfirmDialog(ConfirmDialog, 'Are you sure?')
 
-    if(isConfirmed) {
+    if (isConfirmed) {
       clearNote()
       navigate('/')
     }
@@ -97,28 +97,30 @@ function Note() {
   async function deleteNoteHandler() {
     const isConfirmed = await useConfirmDialog(ConfirmDialog, 'Are you sure?')
 
-    if(isConfirmed) {
+    if (isConfirmed) {
       dispatch(deleteNote(noteId))
       clearNote()
       navigate('/')
     }
   }
 
-
   return (
     <div>
-      <button onClick={redo}>Redo</button>
-      <button onClick={undo}>Undo</button>
-      <h1 className="text-2xl">Note: {noteId}</h1>
-      <div className="rounded bg-slate-100 p-2 shadow">
-        <h2>{title}</h2>
+      <h2 className="text-2xl mb-2">{noteId ? 'Updating Note' : 'New Note'}</h2>
+      {/* <h1 className="text-2xl mt-2 mb-2">Note: {title}</h1> */}
+      <div className="td-note-card">
+        <div className='self-start space-x-2'>
+          <TDButton small bgColor='stone-200' onClick={redo}>Redo</TDButton>
+          <TDButton small bgColor='stone-200' onClick={undo}>Undo</TDButton>
+        </div>
         <input
+        className='text-2xl rounded px-3 py-1 focus:outline-sky-200'
           type="text"
           placeholder="Note Title"
           value={title}
           onChange={onTitleChange}
         />
-        <div>
+        <div className='self-start'>
           {todos.state.map((todo, index) => (
             <TodoItem
               todo={todo}
@@ -128,18 +130,33 @@ function Note() {
               onUpdate={updateTodo}
             />
           ))}
-          <button onClick={addNewTodo}>Add New Todo</button>
+          <div className='mt-2'>
+            <TDButton onClick={addNewTodo}>Add New Todo</TDButton>
+          </div>
         </div>
-        <div>
-          <h3>Actions</h3>
-          <button onClick={cancelHandler}>Cancel</button>
-          <button onClick={saveNoteHandler}>Save Note</button>
-          <button
+        <div className='flex gap-2'>
+          <TDButton 
+            dark 
+            bgColor="amber-400" 
+            onClick={cancelHandler}
+          >
+            Cancel
+          </TDButton>
+          <TDButton 
+            dark 
+            bgColor="green-500" 
+            onClick={saveNoteHandler}
+          >
+            Save Note
+          </TDButton>
+          <TDButton
+            dark
+            bgColor="red-600"
             disabled={!noteId}
             onClick={deleteNoteHandler}
           >
             Delete Note
-          </button>
+          </TDButton>
         </div>
       </div>
     </div>
