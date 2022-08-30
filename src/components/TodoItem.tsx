@@ -22,7 +22,7 @@ export default function TodoItem({
   }
 
   return (
-    <div className='py-1 flex gap-3 '>
+    <div className="py-1 flex gap-3 ">
       <input
         className="w-6"
         type="checkbox"
@@ -31,11 +31,14 @@ export default function TodoItem({
       />
       <input
         className="text-xl rounded px-3 py-1 focus:outline-sky-200"
+        style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
         type="text"
         value={todo.text}
         onChange={changeText}
       />
-      <TDButton small bgColor='red-600' dark onClick={() => onDelete(index)}>Delete</TDButton>
+      <TDButton small bgColor="red-600" dark onClick={() => onDelete(index)}>
+        Delete
+      </TDButton>
     </div>
   )
 }

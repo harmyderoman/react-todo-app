@@ -31,7 +31,7 @@ function Note() {
   }
 
   const todos = useArrayState<Todo>([])
-  const { undo, redo, clearHistory } = useHistoryEffect(
+  const { undo, redo, clearHistory, canRedo, canUndo } = useHistoryEffect(
     todos.state,
     todos.setState
   )
@@ -108,19 +108,23 @@ function Note() {
     <div>
       <h2 className="text-2xl mb-2">{noteId ? 'Updating Note' : 'New Note'}</h2>
       {/* <h1 className="text-2xl mt-2 mb-2">Note: {title}</h1> */}
-      <div className="td-note-card">
-        <div className='self-start space-x-2'>
-          <TDButton small bgColor='stone-200' onClick={redo}>Redo</TDButton>
-          <TDButton small bgColor='stone-200' onClick={undo}>Undo</TDButton>
+      <div className="td-note-card" style={{ minWidth: '500px' }}>
+        <div className="self-start space-x-2">
+          <TDButton small onClick={redo} disabled={!canRedo}>
+            Redo
+          </TDButton>
+          <TDButton small onClick={undo} disabled={!canUndo}>
+            Undo
+          </TDButton>
         </div>
         <input
-          className='text-2xl rounded px-3 py-1 focus:outline-sky-200'
+          className="text-2xl rounded px-3 py-1 focus:outline-sky-200"
           type="text"
           placeholder="Note Title"
           value={title}
           onChange={onTitleChange}
         />
-        <div className='self-start'>
+        <div className="self-start">
           {todos.state.map((todo, index) => (
             <TodoItem
               todo={todo}
@@ -130,23 +134,15 @@ function Note() {
               onUpdate={updateTodo}
             />
           ))}
-          <div className='mt-2'>
+          <div className="mt-2">
             <TDButton onClick={addNewTodo}>Add New Todo</TDButton>
           </div>
         </div>
-        <div className='flex gap-2'>
-          <TDButton 
-            dark 
-            bgColor="amber-400" 
-            onClick={cancelHandler}
-          >
+        <div className="w-full flex justify-between">
+          <TDButton dark bgColor="amber-400" onClick={cancelHandler}>
             Cancel
           </TDButton>
-          <TDButton 
-            dark 
-            bgColor="green-500" 
-            onClick={saveNoteHandler}
-          >
+          <TDButton dark bgColor="green-500" onClick={saveNoteHandler}>
             Save Note
           </TDButton>
           <TDButton
