@@ -4,6 +4,7 @@ import type { Note } from 'models'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteNote, selectNotes } from './../store/notesSlice'
 import Dialog from './../components/ConfirmDialog'
+import TDButton from './../components/TDButton'
 import useConfirmDialog from 'hooks/useConfirmDialog'
 
 function List() {
@@ -31,13 +32,15 @@ function List() {
             <NavLink type="button" to={`note/${note.id}`}>
               {note.title}
             </NavLink>
-            <button
+            <TDButton
+              dark
+              bgColor='red-600'
               onClick={() => {
                 handleDeleteNote(note.id)
               }}
             >
               Delete Note
-            </button>
+            </TDButton>
           </li>
         ))}
       </ul>
