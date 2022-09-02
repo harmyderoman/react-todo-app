@@ -22,7 +22,7 @@ function TDButton({
   const classes = useMemo(() => {
     return `td-base-button 
       ${dark ? 'text-white' : 'text-grey-600'} 
-      bg-${bgColor}
+      ${bgColor}
       ${small ? 'td-button-small' : ''}`
   }, [dark, bgColor, small])
 

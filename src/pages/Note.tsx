@@ -77,6 +77,8 @@ function Note() {
     } else {
       dispatch(updateNote(newNote))
     }
+    clearNote()
+    navigate('/')
   }
 
   const clearNote = () => {
@@ -110,10 +112,10 @@ function Note() {
       {/* <h1 className="text-2xl mt-2 mb-2">Note: {title}</h1> */}
       <div className="td-note-card" style={{ minWidth: '500px' }}>
         <div className="self-start space-x-2">
-          <TDButton small onClick={redo} disabled={!canRedo}>
+          <TDButton bgColor="bg-white" small onClick={redo} disabled={!canRedo}>
             Redo
           </TDButton>
-          <TDButton small onClick={undo} disabled={!canUndo}>
+          <TDButton bgColor="bg-white" small onClick={undo} disabled={!canUndo}>
             Undo
           </TDButton>
         </div>
@@ -135,19 +137,19 @@ function Note() {
             />
           ))}
           <div className="mt-2">
-            <TDButton onClick={addNewTodo}>Add New Todo</TDButton>
+            <TDButton bgColor="bg-white" onClick={addNewTodo}>Add New Todo</TDButton>
           </div>
         </div>
-        <div className="w-full flex justify-between">
-          <TDButton dark bgColor="amber-400" onClick={cancelHandler}>
+        <div className="w-full flex justify-end gap-2">
+          <TDButton dark bgColor="bg-amber-400" onClick={cancelHandler}>
             Cancel
           </TDButton>
-          <TDButton dark bgColor="green-500" onClick={saveNoteHandler}>
+          <TDButton dark bgColor="bg-green-500" onClick={saveNoteHandler}>
             Save Note
           </TDButton>
           <TDButton
             dark
-            bgColor="red-600"
+            bgColor="bg-red-600"
             disabled={!noteId}
             onClick={deleteNoteHandler}
           >

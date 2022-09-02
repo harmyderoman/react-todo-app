@@ -37,7 +37,7 @@ function List() {
             </NavLink>
             <TDButton
               dark
-              bgColor='red-600'
+              bgColor='bg-red-600'
               onClick={() => {
                 handleDeleteNote(note.id)
               }}
