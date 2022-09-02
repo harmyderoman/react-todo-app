@@ -5,7 +5,7 @@ type TDButtonProps = {
   children: string
   disabled?: boolean
   dark?: boolean
-  bgColor?: string
+  className?: string
   type?: 'button' | 'submit' | 'reset' | undefined
   small?: boolean
 }
@@ -15,16 +15,16 @@ function TDButton({
   children,
   type = 'button',
   dark = false,
-  bgColor = 'slate-50',
+  className = 'bg-slate-50',
   small = false,
   ...rest
 }: TDButtonProps) {
   const classes = useMemo(() => {
     return `td-base-button 
       ${dark ? 'text-white' : 'text-grey-600'} 
-      ${bgColor}
+      ${className}
       ${small ? 'td-button-small' : ''}`
-  }, [dark, bgColor, small])
+  }, [dark, className, small])
 
   return (
     <button className={classes} type={type} onClick={onClick} {...rest}>

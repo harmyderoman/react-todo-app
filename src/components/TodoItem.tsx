@@ -36,7 +36,7 @@ export default function TodoItem({
         value={todo.text}
         onChange={changeText}
       />
-      <TDButton small bgColor="bg-red-600" dark onClick={() => onDelete(index)}>
+      <TDButton small className="bg-red-600" dark onClick={() => onDelete(index)}>
         Delete
       </TDButton>
     </div>

@@ -9,8 +9,8 @@ export default function ConfirmDialog(props: ConfirmDialogProps) {
         style={{minWidth: '400px'}}>
         <h2 className='text-xl'>{props.message}</h2>
         <div className='mt-4 space-x-2'>
-          <TDButton bgColor="bg-green-500" onClick={()=>{props.confirm(true)}}>Confirm</TDButton>
-          <TDButton bgColor="bg-amber-400" onClick={props.cancel}>Cancel</TDButton>
+          <TDButton className="bg-green-500" onClick={()=>{props.confirm(true)}}>Confirm</TDButton>
+          <TDButton className="bg-amber-400" onClick={props.cancel}>Cancel</TDButton>
         </div>
       </div>
     </div>
