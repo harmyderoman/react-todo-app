@@ -13,21 +13,21 @@ export default function useArrayState<T extends ArrayItem>(
     setState((state) => state.filter((_, i) => i != index))
   }
 
-  const deleteItemsByProperty = (prop: Record<string, unknown>) => {
+  const deleteItemsByProperty = (prop: Partial<T>) => {
     const key = Object.keys(prop)[0]
 
     setState((state) => state.filter((item) => item[key] != prop[key]))
   }
 
-  const updateItemByIndex = (index: number, item: T) => {
+  const updateItemByIndex = (index: number, newItem: Partial<T>) => {
     setState((state) => {
-      const updatedItem = Object.assign({}, state[index], item)
+      const updatedItem = Object.assign({}, state[index], newItem)
 
       return [...state.slice(0, index), updatedItem, ...state.slice(index + 1)]
     })
   }
 
-  const updateItemsByProperty = (prop: Record<string, unknown>, newItem: T) => {
+  const updateItemsByProperty = (prop: Partial<T>, newItem: Partial<T>) => {
     const key = Object.keys(prop)[0]
 
     setState((state) => {

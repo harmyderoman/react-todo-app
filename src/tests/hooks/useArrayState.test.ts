@@ -44,8 +44,6 @@ describe('useArrayState', () => {
     const { result } = renderHook(() => useArrayState(INIT_STATE))
   
     act(() => {
-      // TODO: fix types for partial updates
-      // @ts-ignore
       result.current.updateItemsByProperty({id: 'a'}, { value: 1 } )
     })
     expect(result.current.state[0].value).toBe(1)
