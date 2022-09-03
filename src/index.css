@@ -39,3 +39,11 @@
 .td-note-card {
   @apply rounded-lg bg-slate-200 p-5 shadow flex flex-col items-center gap-5
 }
+
+/** List */
+.td-list-card {
+  min-width: 250px;
+  @apply border shadow-lg py-4 px-4 rounded-xl flex flex-col gap-2
+}
+
+

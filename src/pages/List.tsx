@@ -16,7 +16,7 @@ function List() {
   })
 
   const handleDeleteNote = async (id: string) => {
-    const response = await useConfirmDialog(Dialog, 'Are you?')
+    const response = await useConfirmDialog(Dialog, 'Are you sure?')
 
     if (response) {
       dispatch(deleteNote(id))
@@ -25,19 +25,26 @@ function List() {
 
   return (
     <>
-      <h1 className="text-2xl">List of Notes:</h1>
-      <div className='pt-2'>
+      <div className="pt-6 flex gap-4">
         {notes.map((note) => (
-          <div
-            className='border py-4 px-4 rounded-xl flex flex-col gap-2' 
-            key={note.id}
-            >
+          <div className="td-list-card " key={note.id}>
             <NavLink type="button" to={`note/${note.id}`}>
-              <h2 className='text-xl'>#{note.title}</h2>
+              <h2 className="text-xl">#{note.title}</h2>
             </NavLink>
+            <ul>
+              {note.todos.map((todo) => (
+                <li
+                  style={{
+                    textDecoration: todo.completed ? 'line-through' : 'none'
+                  }}
+                >
+                  {todo.text}
+                </li>
+              ))}
+            </ul>
             <TDButton
               dark
-              className='bg-red-600'
+              className="bg-red-600"
               onClick={() => {
                 handleDeleteNote(note.id)
               }}
