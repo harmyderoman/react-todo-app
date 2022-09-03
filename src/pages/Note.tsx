@@ -147,14 +147,13 @@ function Note() {
           <TDButton dark className="bg-green-500" onClick={saveNoteHandler}>
             Save Note
           </TDButton>
-          <TDButton
+          {noteId&&<TDButton
             dark
             className="bg-red-600"
-            disabled={!noteId}
             onClick={deleteNoteHandler}
           >
             Delete Note
-          </TDButton>
+          </TDButton>}
         </div>
       </div>
     </div>
