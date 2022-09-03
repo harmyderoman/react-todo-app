@@ -27,11 +27,11 @@ function List() {
     <>
       <div className="pt-6 flex gap-4">
         {notes.map((note) => (
-          <div className="td-list-card " key={note.id}>
+          <div className="td-list-card flex justify-between" key={note.id}>
             <NavLink type="button" to={`note/${note.id}`}>
               <h2 className="text-xl">#{note.title}</h2>
             </NavLink>
-            <ul>
+            <ul className='border rounded-lg px-2 py-2 h-full'>
               {note.todos.map((todo) => (
                 <li
                   style={{
