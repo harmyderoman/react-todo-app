@@ -31,15 +31,21 @@ export default function useHistoryEffect<T>(state: T, setState: ((arg0: T) => vo
     }
   }
   const canRedo = useMemo(() => {
+    if(history.length === 0) return false
+
     return historyIndex < (history.length - 1)
   }, [history, historyIndex])
 
   const canUndo = useMemo(() => {
+    if(history.length === 0) return false
+    
     return historyIndex > 0
   }, [historyIndex])
 
   const clearHistory = () => {
+    setWatch(false)
     setHistory([])
+    setIndex(0)
   }
 
   return {
