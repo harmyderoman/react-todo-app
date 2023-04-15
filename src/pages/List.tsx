@@ -37,6 +37,7 @@ function List() {
                   style={{
                     textDecoration: todo.completed ? 'line-through' : 'none'
                   }}
+                  key={todo.id}
                 >
                   {todo.text}
                 </li>
