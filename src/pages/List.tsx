@@ -11,12 +11,12 @@ function List() {
   const notes: Note[] = useSelector(selectNotes)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    console.log('notes:', notes)
-  })
+  // useEffect(() => {
+  //   console.log('notes:', notes)
+  // })
 
   const handleDeleteNote = async (id: string) => {
-    const response = await useConfirmDialog(Dialog, 'Are you sure?')
+    const response = await useConfirmDialog(Dialog, { message: 'Are you sure?' })
 
     if (response) {
       dispatch(deleteNote(id))

@@ -6,9 +6,11 @@ const confirmRoot = document.createElement('div')
 const body = document.querySelector('body')
 body?.appendChild(confirmRoot)
 
-const useConfirmDialog = (DialogContent: ComponentType<ConfirmDialogProps>, message: string): Promise<boolean> =>
-  new Promise(response => {
-    
+const useConfirmDialog = (
+  DialogContent: ComponentType<ConfirmDialogProps>,
+  props: Omit<ConfirmDialogProps, 'confirm' | 'cancel'>
+): Promise<boolean> =>
+  new Promise((response) => {
     const root = createRoot(confirmRoot)
     const unmount = () => {
       root.unmount()
@@ -19,10 +21,11 @@ const useConfirmDialog = (DialogContent: ComponentType<ConfirmDialogProps>, mess
     }
     root.render(
       <DialogContent
-        message={message}
-        confirm={() => onConfirm(true)} 
+        {...props}
+        confirm={() => onConfirm(true)}
         cancel={() => onConfirm(false)}
-      />)
+      />
+    )
   })
 
 export default useConfirmDialog

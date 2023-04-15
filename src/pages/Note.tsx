@@ -89,7 +89,7 @@ function Note() {
   }
 
   async function cancelHandler() {
-    const isConfirmed = await useConfirmDialog(ConfirmDialog, 'Are you sure?')
+    const isConfirmed = await useConfirmDialog(ConfirmDialog, { message: 'Are you sure?' })
 
     if (isConfirmed) {
       clearNote()
@@ -97,7 +97,7 @@ function Note() {
     }
   }
   async function deleteNoteHandler() {
-    const isConfirmed = await useConfirmDialog(ConfirmDialog, 'Are you sure?')
+    const isConfirmed = await useConfirmDialog(ConfirmDialog, { message: 'Are you sure?' })
 
     if (isConfirmed) {
       dispatch(deleteNote(noteId))
