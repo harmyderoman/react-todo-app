@@ -36,6 +36,7 @@ specifiers:
   react-dom: ^18.2.0
   react-redux: ^8.0.5
   react-router-dom: ^6.10.0
+  reactivous: ^0.1.0
   redux-localstorage-simple: ^2.5.1
   tailwindcss: ^3.3.1
   typescript: ^4.9.5
@@ -49,6 +50,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-redux: 8.0.5_jlpdlnmgz6kfq77dq7ypembf5a
   react-router-dom: 6.10.0_biqbaboplfbrettd7655fr4n2y
+  reactivous: 0.1.0_biqbaboplfbrettd7655fr4n2y
   redux-localstorage-simple: 2.5.1
 
 devDependencies:
@@ -5231,6 +5233,16 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+
+  /reactivous/0.1.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-GQZyfnO2Cacx6MWegW5ajLM0zHL+WBXlPmqvy5rG0XZ/onoU9SeiAEXOU8D1GxCiv4t+l2i2qbkdx18JXt5gNA==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /read-cache/1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
