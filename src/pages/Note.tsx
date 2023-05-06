@@ -11,11 +11,12 @@ import {
   selectNotes
 } from './../store/notesSlice'
 
-import useArrayState from '../hooks/useArrayState'
 import useHistoryEffect from '../hooks/useHistoryEffect'
 import { nanoid } from 'nanoid/non-secure'
 import useConfirmDialog from './../hooks/useConfirmDialog'
 import ConfirmDialog from 'components/ConfirmDialog'
+import { useObjectsArray } from 'reactivous'
+
 
 function Note() {
   const { noteId } = useParams()
@@ -30,7 +31,7 @@ function Note() {
     setTitle(e.currentTarget.value)
   }
 
-  const todos = useArrayState<Todo>([])
+  const todos = useObjectsArray<Todo>([])
   const { undo, redo, clearHistory, canRedo, canUndo } = useHistoryEffect(
     todos.state,
     todos.setState
@@ -54,15 +55,15 @@ function Note() {
 
   // To delete Todo by id use this:
   // const deleteTodo = (id: string) => {
-  //   todos.deleteItemsByProperty({ id: id })
+  //   todos.remove({ id: id })
   // }
 
   const deleteTodoByIndex = (index: number) => {
-    todos.deleteItemByIndex(index)
+    todos.remove(index)
   }
 
   const updateTodo = (todo: Todo) => {
-    todos.updateItemsByProperty({ id: todo.id }, todo)
+    todos.updateAll({ id: todo.id }, todo)
   }
 
   const saveNoteHandler = () => {
